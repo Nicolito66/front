@@ -5,22 +5,24 @@ import axios from 'axios';
 
 
 export function HomeComponent() {
-    const [login, setLogin] = useState("");
+    const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [mail, setMail] = useState("");
+    const [email, setEmail] = useState("");
 
 
-    function sendRegistration() {
-        let jsonRegistration = {
-            login: login,
+    const register = async () => {
+        let user = {
+            id:"",
+            username: username,
             password: password,
-            mail: mail
+            email: email
         }
-        console.log(jsonRegistration);
         try {
-            axios.put("http://localhost:2222/", jsonRegistration)
+            console.log()
+            const response = await axios.put(`http://localhost:8080/api/register`, user);
+            console.log(response.data); // Optional: Handle the response data
         } catch (error) {
-            console.error("Une erreur est survenue lors de l'envoie", error);
+            console.error(error); // Optional: Handle the error
         }
     }
 
@@ -36,7 +38,7 @@ export function HomeComponent() {
                         autoComplete="current-login"
                         variant="standard"
                         onChange={(e) => {
-                            setLogin(e.target.value)
+                            setUsername(e.target.value)
                         }}
                     />
                     <TextField
@@ -55,10 +57,10 @@ export function HomeComponent() {
                         autoComplete="current-mail"
                         variant="standard"
                         onChange={(e) => {
-                            setMail(e.target.value)
+                            setEmail(e.target.value)
                         }}
                     />
-                    <Button variant="outlined" onClick={sendRegistration}>Envoyer</Button>
+                    <Button variant="outlined" onClick={register}>Envoyer</Button>
                 </div>
             </div>
         </div>
