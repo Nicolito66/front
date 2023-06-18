@@ -15,9 +15,9 @@ export function LoginComponent() {
     }
 
     const login = () => {
-        axios.get(`http://localhost:8080/api/login`, user)
-            .then(() => {
-                //TODO
+        axios.post(`http://localhost:8080/test/login`, user)
+            .then((response) => {
+                console.log(response);
             })
     }
     return (
