@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {TextField} from "@mui/material";
+import {Button, TextField} from "@mui/material";
 import type {User} from "../interfaces/User.interface";
 import axios from "axios";
 
@@ -17,7 +17,7 @@ export function LoginComponent() {
     const login = () => {
         axios.get(`http://localhost:8080/api/login`, user)
             .then(() => {
-
+                //TODO
             })
     }
     return (
@@ -40,5 +40,6 @@ export function LoginComponent() {
                     setPassword(e.target.value)
                 }}
             />
+            <Button variant="outlined" onClick={login}>Envoyer</Button>
         </div>);
 }

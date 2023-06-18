@@ -5,6 +5,8 @@ import {LoginComponent} from "./Login.component";
 export function HomeComponent() {
 
 
-
-    return <LoginComponent></LoginComponent>;
+    return (<div>
+            <RegisterComponent/>
+            <LoginComponent/>
+    </div>);
 }
