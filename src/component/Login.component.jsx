@@ -17,7 +17,7 @@ export function LoginComponent() {
     const login = () => {
         axios.post(`http://localhost:8080/test/login`, user)
             .then((response) => {
-                console.log(response);
+                console.log(response.data);
             })
     }
     return (
