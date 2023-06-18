@@ -12,17 +12,28 @@ export function HomeComponent() {
 
     const register = async () => {
         let user = {
-            id:"",
+            id: "",
             username: username,
             password: password,
             mail: mail
         }
         try {
-            console.log()
-            const response = await axios.put(`http://localhost:8080/api/register`, user);
-            console.log(response.data); // Optional: Handle the response data
+            axios.put(`http://localhost:8080/api/register`, user).then((response) => {
+                console.log(response.data);
+            });
         } catch (error) {
-            console.error(error); // Optional: Handle the error
+            // Gérer les erreurs de requête
+            if (error.response) {
+                // Réponse reçue avec un code d'erreur HTTP
+                const errorMessage = error.response.data.message;
+                console.error(errorMessage);
+            } else if (error.request) {
+                // Aucune réponse reçue du serveur
+                console.error('Pas de réponse du serveur');
+            } else {
+                // Erreur lors de la requête
+                console.error('Erreur lors de la requête', error.message);
+            }
         }
     }
 
