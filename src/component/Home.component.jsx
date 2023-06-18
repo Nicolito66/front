@@ -7,7 +7,7 @@ import axios from 'axios';
 export function HomeComponent() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [email, setEmail] = useState("");
+    const [mail, setMail] = useState("");
 
 
     const register = async () => {
@@ -15,7 +15,7 @@ export function HomeComponent() {
             id:"",
             username: username,
             password: password,
-            email: email
+            mail: mail
         }
         try {
             console.log()
@@ -57,7 +57,7 @@ export function HomeComponent() {
                         autoComplete="current-mail"
                         variant="standard"
                         onChange={(e) => {
-                            setEmail(e.target.value)
+                            setMail(e.target.value)
                         }}
                     />
                     <Button variant="outlined" onClick={register}>Envoyer</Button>
