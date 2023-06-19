@@ -2,8 +2,10 @@ import React, {useState} from "react";
 import {Button, TextField} from "@mui/material";
 import type {User} from "../interfaces/User.interface";
 import axios from "axios";
+import moment from "moment/moment";
 
 export function LoginComponent() {
+    const moment = require('moment');
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
@@ -15,14 +17,14 @@ export function LoginComponent() {
     }
 
     const login = () => {
-        axios.post(`http://localhost:8080/api/login`, user,{ withCredentials: false })
+        axios.post(`http://localhost:8080/api/login`, user)
             .then((response) => {
-                //FIXME: Passer le cookie dans le header au lieu du body
-                const cookies = response.data;
-                console.log(cookies); // Affiche les cookies dans l'en-tête
-
-                document.cookie=`auth=${cookies}; expires=Thu, 19 Jun 2023 20:12:00 UTC; path=/`;
-
+                if(response.status === 200){
+                    //FIXME: Passer le cookie dans le header au lieu du body
+                    const cookies = response.data;
+                    const expires = moment.utc().add(20,"minute").format('ddd, DD MMM YYYY HH:mm:ss [UTC]')
+                    document.cookie=`auth=${cookies}; expires=${expires}; path=/`;
+                }
             })
     }
     return (
