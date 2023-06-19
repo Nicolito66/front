@@ -15,9 +15,14 @@ export function LoginComponent() {
     }
 
     const login = () => {
-        axios.post(`http://localhost:8080/api/login`, user)
+        axios.post(`http://localhost:8080/api/login`, user,{ withCredentials: false })
             .then((response) => {
-                console.log(response.data);
+                //FIXME: Passer le cookie dans le header au lieu du body
+                const cookies = response.data;
+                console.log(cookies); // Affiche les cookies dans l'en-tête
+
+                document.cookie=`auth=${cookies}; expires=Thu, 19 Jun 2023 20:12:00 UTC; path=/`;
+
             })
     }
     return (
