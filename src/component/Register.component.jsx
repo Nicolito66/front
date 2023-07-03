@@ -3,12 +3,14 @@ import {TextField, Button} from "@mui/material";
 import styles from './Home.module.css';
 import axios from 'axios';
 import type {User} from "../interfaces/User.interface";
+import VerificationComponent from "./Verification.component";
 
 
 export function RegisterComponent() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [mail, setMail] = useState("");
+    const [showVerificationPage, setShowVerificationPage] = useState(false);
     let user: User = {
         id: "",
         username: username,
@@ -20,7 +22,9 @@ export function RegisterComponent() {
         try {
             axios.put(`http://localhost:8080/api/register`, user)
                 .then((response) => {
-                    console.log(response.data);
+                    if (response) {
+                        setShowVerificationPage(true);
+                    }
                 });
         } catch (error) {
             // Gérer les erreurs de requête
@@ -41,40 +45,43 @@ export function RegisterComponent() {
 
     return (
         <div className={styles.page}>
-
-            <div className={styles.center}>
-                <div className={styles.registration}>
-                    <TextField
-                        id="standard-mail-input"
-                        label="Mail"
-                        autoComplete="current-mail"
-                        variant="standard"
-                        onChange={(e) => {
-                            setMail(e.target.value)
-                        }}
-                    />
-                    <TextField
-                        id="standard-login-input"
-                        label="Login"
-                        autoComplete="current-login"
-                        variant="standard"
-                        onChange={(e) => {
-                            setUsername(e.target.value)
-                        }}
-                    />
-                    <TextField
-                        id="standard-password-input"
-                        label="Password"
-                        type="password"
-                        autoComplete="current-password"
-                        variant="standard"
-                        onChange={(e) => {
-                            setPassword(e.target.value)
-                        }}
-                    />
-                    <Button variant="outlined" onClick={register}>Envoyer</Button>
-                </div>
-            </div>
+            {showVerificationPage ?
+                (<VerificationComponent />) :
+                (
+                    <div className={styles.center}>
+                        <div className={styles.registration}>
+                            <TextField
+                                id="standard-mail-input"
+                                label="Mail"
+                                autoComplete="current-mail"
+                                variant="standard"
+                                onChange={(e) => {
+                                    setMail(e.target.value)
+                                }}
+                            />
+                            <TextField
+                                id="standard-login-input"
+                                label="Login"
+                                autoComplete="current-login"
+                                variant="standard"
+                                onChange={(e) => {
+                                    setUsername(e.target.value)
+                                }}
+                            />
+                            <TextField
+                                id="standard-password-input"
+                                label="Password"
+                                type="password"
+                                autoComplete="current-password"
+                                variant="standard"
+                                onChange={(e) => {
+                                    setPassword(e.target.value)
+                                }}
+                            />
+                            <Button variant="outlined" onClick={register}>Envoyer</Button>
+                        </div>
+                    </div>)
+            }
         </div>
     );
 }
