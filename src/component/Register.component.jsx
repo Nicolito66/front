@@ -11,6 +11,7 @@ export function RegisterComponent() {
     const [password, setPassword] = useState("");
     const [mail, setMail] = useState("");
     const [showVerificationPage, setShowVerificationPage] = useState(false);
+    const [registerUserId,setRegisterUserId] = useState("");
     let user: User = {
         id: "",
         username: username,
@@ -23,6 +24,7 @@ export function RegisterComponent() {
             axios.put(`http://localhost:8080/api/register`, user)
                 .then((response) => {
                     if (response) {
+                        setRegisterUserId(response.data.id)
                         setShowVerificationPage(true);
                     }
                 });
@@ -46,7 +48,9 @@ export function RegisterComponent() {
     return (
         <div className={styles.page}>
             {showVerificationPage ?
-                (<VerificationComponent />) :
+                (<VerificationComponent
+                id={registerUserId}
+                />) :
                 (
                     <div className={styles.center}>
                         <div className={styles.registration}>
