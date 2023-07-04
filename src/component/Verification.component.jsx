@@ -20,7 +20,9 @@ const VerificationComponent = (props:VerificationProps) => {
         axios.put(`http://localhost:8080/api/verification`, verificationInfos)
             .then((response) => {
                 console.log(response.data);
-            });
+            }).catch(error => {
+                console.error(error);
+        });
     };
 
     return (

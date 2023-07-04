@@ -27,7 +27,9 @@ export function RegisterComponent() {
                         setRegisterUserId(response.data.object.id)
                         setShowVerificationPage(true);
                     }
-                });
+                }).catch(error => {
+                    console.error(error);
+            });
         } catch (error) {
             // Gérer les erreurs de requête
             if (error.response) {
