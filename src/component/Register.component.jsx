@@ -24,7 +24,7 @@ export function RegisterComponent() {
             axios.put(`http://localhost:8080/api/register`, user)
                 .then((response) => {
                     if (response) {
-                        setRegisterUserId(response.data.id)
+                        setRegisterUserId(response.data.object.id)
                         setShowVerificationPage(true);
                     }
                 });

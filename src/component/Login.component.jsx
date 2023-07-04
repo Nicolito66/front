@@ -20,7 +20,7 @@ export function LoginComponent() {
             .then((response) => {
                 if (response.status === 200) {
                     //FIXME: Passer le cookie dans le header au lieu du body
-                    const cookies = response.data;
+                    const cookies = response.data.object;
                     const expires = moment.utc().add(20, "minute").format('ddd, DD MMM YYYY HH:mm:ss [UTC]')
                     document.cookie = `auth=${cookies}; expires=${expires}; path=/`;
                 }
