@@ -1,9 +1,12 @@
 import React, {useState} from "react";
-import {TextField, Button} from "@mui/material";
+import {TextField} from "@mui/material";
 import styles from './Home.module.css';
 import axios from 'axios';
 import type {User} from "../interfaces/User.interface";
 import VerificationComponent from "./Verification.component";
+import CircularProgress from "@mui/material/CircularProgress";
+import LoadingButton from "@mui/lab/LoadingButton";
+import {LABELS} from "../labels/interface-labels";
 
 
 export function RegisterComponent() {
@@ -12,6 +15,8 @@ export function RegisterComponent() {
     const [mail, setMail] = useState("");
     const [showVerificationPage, setShowVerificationPage] = useState(false);
     const [registerUserId,setRegisterUserId] = useState("");
+    const [loading,setLoading] = useState(false);
+
     let user: User = {
         id: "",
         username: username,
@@ -20,6 +25,7 @@ export function RegisterComponent() {
     }
 
     const register = async () => {
+        setLoading(true);
         try {
             axios.put(`http://localhost:8080/api/register`, user)
                 .then((response) => {
@@ -29,6 +35,8 @@ export function RegisterComponent() {
                     }
                 }).catch(error => {
                     console.error(error);
+            }).finally(() => {
+                setLoading(false);
             });
         } catch (error) {
             // Gérer les erreurs de requête
@@ -84,7 +92,13 @@ export function RegisterComponent() {
                                     setPassword(e.target.value)
                                 }}
                             />
-                            <Button variant="outlined" onClick={register}>Envoyer</Button>
+                            <LoadingButton
+                                onClick={register}
+                                loading={loading}
+                                loadingIndicator={<CircularProgress size={20} />}
+                            >
+                                {loading ? LABELS.LOADING : LABELS.REGISTER}
+                            </LoadingButton>
                         </div>
                     </div>)
             }
