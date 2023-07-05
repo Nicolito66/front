@@ -6,6 +6,7 @@ import VerificationComponent from "./Verification.component";
 import LoadingButton from '@mui/lab/LoadingButton';
 import CircularProgress from '@mui/material/CircularProgress';
 import {LABELS} from "../labels/interface-labels";
+
 export function LoginComponent() {
     const moment = require('moment');
     const [username, setUsername] = useState("");

@@ -1,12 +1,13 @@
 import React, {useState} from "react";
 import {TextField} from "@mui/material";
-import styles from './Home.module.css';
+import styles from './Register.module.css';
 import axios from 'axios';
 import type {User} from "../interfaces/User.interface";
 import VerificationComponent from "./Verification.component";
 import CircularProgress from "@mui/material/CircularProgress";
 import LoadingButton from "@mui/lab/LoadingButton";
 import {LABELS} from "../labels/interface-labels";
+import emailValidator from 'email-validator';
 
 
 export function RegisterComponent() {
@@ -16,6 +17,10 @@ export function RegisterComponent() {
     const [showVerificationPage, setShowVerificationPage] = useState(false);
     const [registerUserId,setRegisterUserId] = useState("");
     const [loading,setLoading] = useState(false);
+
+    const isNotValidEmail = !emailValidator.validate(mail) && mail;
+    const isNotValidUsername = /^\d/.test(username) || /[!@#$%^&*(),.?":{}|<>]/.test(username) || !/^.{0}$|^.{5,}$/.test(username);
+    const isNotValidPassword = !/^.{0}$|^.{8,}$/.test(password);
 
     let user: User = {
         id: "",
@@ -35,6 +40,9 @@ export function RegisterComponent() {
                     }
                 }).catch(error => {
                     console.error(error);
+                setUsername("");
+                setMail("");
+                setPassword("");
             }).finally(() => {
                 setLoading(false);
             });
@@ -70,8 +78,10 @@ export function RegisterComponent() {
                                 autoComplete="current-mail"
                                 variant="standard"
                                 onChange={(e) => {
-                                    setMail(e.target.value)
+                                    setMail(e.target.value);
                                 }}
+                                value={mail}
+                                error={isNotValidEmail}
                             />
                             <TextField
                                 id="standard-login-input"
@@ -79,8 +89,10 @@ export function RegisterComponent() {
                                 autoComplete="current-login"
                                 variant="standard"
                                 onChange={(e) => {
-                                    setUsername(e.target.value)
+                                    setUsername(e.target.value);
                                 }}
+                                value={username}
+                                error={isNotValidUsername}
                             />
                             <TextField
                                 id="standard-password-input"
@@ -91,9 +103,18 @@ export function RegisterComponent() {
                                 onChange={(e) => {
                                     setPassword(e.target.value)
                                 }}
+                                value={password}
+                                error={isNotValidPassword}
                             />
                             <LoadingButton
                                 onClick={register}
+                                disabled={isNotValidEmail
+                                    || isNotValidUsername
+                                    || isNotValidPassword
+                                    || !mail
+                                    || !username
+                                    || !password
+                            }
                                 loading={loading}
                                 loadingIndicator={<CircularProgress size={20} />}
                             >
