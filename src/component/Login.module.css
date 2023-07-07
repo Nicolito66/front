@@ -1,5 +1,36 @@
-
 .page {
-    background-color: dimgray;
-    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f5f8fa;
+}
+
+.login {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 300px;
+    padding: 16px;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.login > .MuiTextField-root {
+    width: 100%;
+}
+
+.login > .MuiButton-root {
+    margin-top: 16px;
+    background-color: #1976d2;
+    color: #fff;
+}
+
+.login > .MuiButton-root:hover {
+    background-color: #1565c0;
+}
+
+.login > .MuiButton-root:disabled {
+    background-color: #bdbdbd;
 }

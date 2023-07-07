@@ -52,7 +52,7 @@ export function LoginComponent() {
                 (<VerificationComponent
                     id={registerUserId}
                 />) : (
-                    <>
+                    <div className={styles.login}>
                         <TextField
                             id="standard-login-input"
                             label="Login"
@@ -79,7 +79,7 @@ export function LoginComponent() {
                         >
                             {loading ? LABELS.LOADING : LABELS.LOGIN}
                         </LoadingButton>
-                    </>
+                    </div>
                 )}
         </div>);
 }
