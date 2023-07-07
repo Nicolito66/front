@@ -1,0 +1,23 @@
+
+.menubar {
+    background-color: #282c34;
+    height: 40px;
+}
+
+.list {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.list > div{
+    font-size: 1.5rem;
+    transition: font-size 0.5s ease;
+    height: 40px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.list > div:hover{
+    background-color: #282c50;
+    font-size: 1.6rem;
+
+}

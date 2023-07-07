@@ -6,6 +6,7 @@ import VerificationComponent from "./Verification.component";
 import LoadingButton from '@mui/lab/LoadingButton';
 import CircularProgress from '@mui/material/CircularProgress';
 import {LABELS} from "../labels/interface-labels";
+import styles from './Login.module.css';
 
 export function LoginComponent() {
     const moment = require('moment');
@@ -46,8 +47,7 @@ export function LoginComponent() {
         });
     }
     return (
-        <div>
-
+        <div className={styles.page}>
             {showVerificationPage ?
                 (<VerificationComponent
                     id={registerUserId}
