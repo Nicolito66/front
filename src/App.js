@@ -6,6 +6,7 @@ import {LoginComponent} from "./component/Login.component";
 import {RegisterComponent} from "./component/Register.component";
 import {MenuBarComponent} from "./menu/menu-bar.component";
 import styles from './App.css';
+import AccueilComponent from "./component/Accueil.component";
 
 
 function App() {
@@ -14,7 +15,7 @@ function App() {
             <BrowserRouter>
                 <MenuBarComponent></MenuBarComponent>
                 <Routes>
-                    <Route index element={<LoginComponent/>}/>
+                    <Route index element={<AccueilComponent/>}/>
                     <Route path="/login" element={<LoginComponent/>}/>
                     <Route path="/register" element={<RegisterComponent/>}/>
                 </Routes>
